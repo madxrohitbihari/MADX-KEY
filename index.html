@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Access Key - MADXROHITBIHAR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #0d111d;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: #0f172a;
+            border: 2px solid #ff9900;
+            padding: 30px 24px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 0 25px rgba(255, 153, 0, 0.25);
+        }
+
+        .logo-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 2px solid #ff9900;
+            box-shadow: 0 0 15px rgba(255, 153, 0, 0.4);
+            margin: 0 auto 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #050811;
+        }
+
+        .logo-circle i {
+            color: #ff9900;
+            font-size: 28px;
+        }
+
+        h2 {
+            color: #ffffff;
+            margin-bottom: 12px;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        p {
+            color: #94a3b8;
+            font-size: 13px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .key-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 14px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #ff9900;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            overflow-x: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .key-box::-webkit-scrollbar {
+            display: none;
+        }
+
+        .copy-btn {
+            background: #ff9900;
+            color: #000000;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 153, 0, 0.3);
+        }
+
+        .copy-btn.copied {
+            background: #00e676 !important;
+            color: #000000 !important;
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.4) !important;
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+        }
+
+        .copy-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Refresh hone par Dikhne Wala Red Error Card */
+        .expired-card {
+            border-color: #ff3333;
+            box-shadow: 0 0 25px rgba(255, 51, 51, 0.25);
+        }
+
+        .expired-card .logo-circle {
+            border-color: #ff3333;
+            box-shadow: 0 0 15px rgba(255, 51, 51, 0.4);
+        }
+
+        .expired-card .logo-circle i {
+            color: #ff3333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="mainCard">
+        <div class="logo-circle">
+            <i class="fa-solid fa-key"></i>
+        </div>
+
+        <h2>Your Access Key</h2>
+        <p>Is key ko copy karein aur apni app me paste karke unlock karein.</p>
+        
+        <div class="key-box" id="displayKey">GENERATING...</div>
+        
+        <button class="copy-btn" id="copyBtn" onclick="copyKey()">
+            <i class="fa-solid fa-copy"></i> <span id="btnText">Copy Key</span>
+        </button>
+    </div>
+
+    <script>
+        // Anti-Refresh Lock Script
+        if (sessionStorage.getItem('pageOpenedBefore')) {
+            // Agar page refresh hua toh UI badal do
+            document.body.innerHTML = `
+                <div class="card expired-card">
+                    <div class="logo-circle">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <h2 style="color: #ff3333;">PAGE EXPIRED</h2>
+                    <p style="color: #cbd5e1; margin-bottom: 0;">Aapne page ko refresh kar diya hai. Kripya app se dubara "Get Key" par click karke naye link se open karein.</p>
+                </div>
+            `;
+        } else {
+            // First time open hone par session flag set kar do
+            sessionStorage.setItem('pageOpenedBefore', 'true');
+
+            const urlParams = new URLSearchParams(window.location.search);
+            let key = urlParams.get('key');
+
+            if (!key) {
+                // Rule: Prefix "MAD" (3 characters, no hyphen)
+                // Last fix ending character "X" (ya koi bhi fix letter rakh sakte hain)
+                // Beech ke characters har baar change honge, aur sabhi uppercase honge.
+                const prefix = "MAD";
+                const suffix = "APK"; // Last fixed characters taaki aakhir mein same rahe
+                const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                
+                let middlePart = '';
+                // Total length 35 karni hai: 3 (prefix) + 29 (middle) + 3 (suffix) = 35 characters
+                for (let i = 0; i < 29; i++) {
+                    middlePart += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                
+                key = prefix + middlePart + suffix;
+            }
+
+            document.getElementById('displayKey').innerText = key;
+        }
+
+        function copyKey() {
+            const btn = document.getElementById('copyBtn');
+            const displayKey = document.getElementById('displayKey').innerText;
+
+            const performCopySuccess = () => {
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy Key';
+                }, 3000);
+            };
+
+            navigator.clipboard.writeText(displayKey).then(() => {
+                performCopySuccess();
+            }).catch(() => {
+                let textarea = document.createElement("textarea");
+                textarea.value = displayKey;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand("copy");
+                document.body.removeChild(textarea);
+                performCopySuccess();
+            });
+        }
+    </script>
+</body>
+</html>
