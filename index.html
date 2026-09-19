@@ -170,16 +170,13 @@
             let key = urlParams.get('key');
 
             if (!key) {
-                // Rule: Prefix "MAD" (3 characters, no hyphen)
-                // Last fix ending character "X" (ya koi bhi fix letter rakh sakte hain)
-                // Beech ke characters har baar change honge, aur sabhi uppercase honge.
                 const prefix = "MAD";
                 const suffix = "APK"; // Last fixed characters taaki aakhir mein same rahe
                 const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
                 
                 let middlePart = '';
-                // Total length 35 karni hai: 3 (prefix) + 29 (middle) + 3 (suffix) = 35 characters
-                for (let i = 0; i < 29; i++) {
+                // Total length 33 karni hai: 3 (prefix) + 27 (middle) + 3 (suffix) = 33 characters
+                for (let i = 0; i < 27; i++) {
                     middlePart += chars.charAt(Math.floor(Math.random() * chars.length));
                 }
                 
